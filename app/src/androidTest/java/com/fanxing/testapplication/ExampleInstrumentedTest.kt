@@ -1,5 +1,7 @@
 package com.fanxing.testapplication
 
+import android.bluetooth.BluetoothManager
+import android.content.Context
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -17,13 +19,24 @@ import org.junit.Assert.*
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+
+    @Test
+    fun scanBlueDevices() {
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        val bluetoothAdapter = (appContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        if (bluetoothAdapter.isDiscovering) {
+            bluetoothAdapter.cancelDiscovery()
+        }
+        bluetoothAdapter.startDiscovery()
+    }
+
     @Test
     fun useAppContext() {
         val TAG: String = "蓝牙设备状态测试"
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-
-        val blueToothManager = BlueToothManager(appContext)
+        val bluetoothAdapter = (appContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        val blueToothManager = BlueToothManager(appContext, bluetoothAdapter)
         var blueToothStatus = blueToothManager.getBlueToothStatus()
 
             if (blueToothStatus == -1) {
