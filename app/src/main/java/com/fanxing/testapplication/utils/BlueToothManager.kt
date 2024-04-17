@@ -1,8 +1,9 @@
 package com.fanxing.testapplication.utils
 
-import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.content.Context
 
-class BlueToothManager {
+class BlueToothManager(val context: Context) {
 
     private val DEBUG: Boolean = true
 
@@ -10,7 +11,7 @@ class BlueToothManager {
      * @return -1: 当前设备不支持蓝牙
      */
     fun getBlueToothStatus(): Int{
-        val blueToothAdapter = BluetoothAdapter.getDefaultAdapter()
+        val blueToothAdapter= (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         if (blueToothAdapter == null){
             // 设备不支持蓝牙
             if (DEBUG) println("设备不支持蓝牙")
