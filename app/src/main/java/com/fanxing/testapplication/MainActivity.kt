@@ -14,6 +14,7 @@ import com.fanxing.testapplication.boardcast.SearchDevices
 import com.fanxing.testapplication.databinding.ActivityMainBinding
 import com.fanxing.testapplication.utils.BlueToothManager
 import com.scwang.smart.refresh.header.MaterialHeader
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,5 +60,11 @@ class MainActivity : AppCompatActivity() {
             priority = IntentFilter.SYSTEM_HIGH_PRIORITY
         }
         registerReceiver(searchDevices, intentFilter)
+
+        val refreshLayout = viewBinding.refreshLayout
+        refreshLayout.setRefreshHeader(MaterialHeader(this))
+        refreshLayout.setOnRefreshListener{
+            refreshLayout.finishRefresh(2000)
+        }
     }
 }
