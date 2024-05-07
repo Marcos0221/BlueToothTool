@@ -1,6 +1,6 @@
 package com.fanxing.testapplication
 
-class BlueDeviceItem {
+class BlueToothDeviceItem {
     lateinit var title: String
     lateinit var address: String
 }
