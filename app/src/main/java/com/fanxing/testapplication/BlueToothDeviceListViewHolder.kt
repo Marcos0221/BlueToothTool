@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class BlueToothDeviceListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
-    private var TitleView: TextView
-    private var AddressView: TextView
+    var TitleView: TextView
+    var AddressView: TextView
 
     init {
         TitleView=itemView.findViewById(R.id.item_title)
