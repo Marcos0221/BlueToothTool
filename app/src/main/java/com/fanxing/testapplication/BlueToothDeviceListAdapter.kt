@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class BlueToothDeviceListAdapter(private val context: Context): RecyclerView.Adapter<BlueToothDeviceListViewHolder>() {
+class BlueToothDeviceListAdapter(private val context: Context, private val list: ArrayList<BlueToothDeviceItem>): RecyclerView.Adapter<BlueToothDeviceListViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -17,12 +17,13 @@ class BlueToothDeviceListAdapter(private val context: Context): RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: BlueToothDeviceListViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val itemView = list[position]
+        holder.TitleView.text = itemView.title
+        holder.AddressView.text = itemView.address
     }
 
-
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return list.size
     }
 
 }
