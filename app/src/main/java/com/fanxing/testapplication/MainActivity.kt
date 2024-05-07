@@ -7,10 +7,13 @@ import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.fanxing.testapplication.boardcast.SearchDevices
 import com.fanxing.testapplication.databinding.ActivityMainBinding
 import com.fanxing.testapplication.utils.BlueToothManager
+import com.scwang.smart.refresh.header.MaterialHeader
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +29,24 @@ class MainActivity : AppCompatActivity() {
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         context = viewBinding.root.context
         setContentView(viewBinding.root)
+        init()
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu?.add(1, 1, 1, "扫描蓝牙设备")
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            // 扫描蓝牙设备
+            1 -> blueToothManager.ScanBlueToothDeviceList()
+        }
+        return true
+    }
+
+    private fun init(){
         searchDevices= SearchDevices()
         bluetoothAdapter = (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         blueToothManager= BlueToothManager(this, bluetoothAdapter)
@@ -38,19 +59,5 @@ class MainActivity : AppCompatActivity() {
             priority = IntentFilter.SYSTEM_HIGH_PRIORITY
         }
         registerReceiver(searchDevices, intentFilter)
-
-        viewBinding.ButtonSend.setOnClickListener {
-//            Toast.makeText(this,
-//                viewBinding.EditMessage.text,
-//                Toast.LENGTH_SHORT).show()
-            viewBinding.EditMessage.text.clear()
-            if (bluetoothAdapter.isDiscovering) {
-                bluetoothAdapter.cancelDiscovery()
-            }
-            bluetoothAdapter.startDiscovery()
-//            blueToothManager.ScanBlueToothDeviceList()
-        }
-
     }
-
 }
